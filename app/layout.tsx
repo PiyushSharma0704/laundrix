@@ -5,8 +5,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, DM_Sans } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "@/components/ui/sonner";
-import Footer from "@/components/common/site-footer";
-import SiteHeader from "@/components/common/site-header";
 import siteConfig from "@/utils/site-config";
 
 const geistSans = Geist({
@@ -76,7 +74,7 @@ export const metadata: Metadata = {
 };
 
 const jsonLd = {
-  "@context": "https://schema.org",
+  "@context": "https://schemLa.org",
   "@type": "Organization",
   name: siteConfig.name,
   url: siteConfig.url,
@@ -124,12 +122,15 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <SiteHeader />
-          {children}
-          <Footer />
-
-          <Toaster position="top-right" richColors closeButton />
+          <div className="min-h-screen">
+            <main>
+              {/* <SiteHeader /> */}
+              {children}
+              {/* <SiteFooter /> */}
+            </main>
+          </div>
         </ThemeProvider>
+        <Toaster position="top-right" richColors closeButton />
       </body>
     </html>
   );

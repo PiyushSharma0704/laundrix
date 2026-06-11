@@ -26,7 +26,7 @@ const siteConfig = {
     "laundry CRM",
     "laundromat software",
     "whatsapp automation",
-    "FabricFlow",
+    "Laundrix",
   ],
 
   author: "FabricFlow",
