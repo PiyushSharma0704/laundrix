@@ -22,8 +22,13 @@ import {
 } from "@/components/ui/form";
 
 import { loginSchema, type LoginFormInputs } from "@/utils/formSchemas/login";
+import { tokenStorage } from "@/lib/api/token";
+import { useRouter } from "next/navigation";
+import { login } from "@/lib/api/auth";
 
 export default function LoginForm() {
+  const router = useRouter();
+
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<LoginFormInputs>({
@@ -38,11 +43,17 @@ export default function LoginForm() {
     setIsLoading(true);
 
     try {
-      console.log(data);
-      toast.success("Login successful!");
+      const response = await login(data);
+
+      tokenStorage.setAccessToken(response.data.accessToken);
+
+      tokenStorage.setRefreshToken(response.data.refreshToken);
+
+      toast.success("Login successful");
+
+      router.push("/dashboard");
     } catch (error) {
-      toast.error("Login failed. Please try again.");
-      console.error(error);
+      toast.error(error instanceof Error ? error.message : "Login failed");
     } finally {
       setIsLoading(false);
     }
