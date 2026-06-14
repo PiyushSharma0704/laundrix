@@ -6,6 +6,8 @@ import { Geist, Geist_Mono, DM_Sans } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "@/components/ui/sonner";
 import siteConfig from "@/utils/site-config";
+import ReduxProvider from "@/store/provider";
+import AuthProvider from "@/store/providers/AuthProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -74,7 +76,7 @@ export const metadata: Metadata = {
 };
 
 const jsonLd = {
-  "@context": "https://schemLa.org",
+  "@context": "https://schema.org",
   "@type": "Organization",
   name: siteConfig.name,
   url: siteConfig.url,
@@ -115,21 +117,21 @@ export default function RootLayout({
         `}
       >
         <NextTopLoader color="#06b6d4" height={3} showSpinner={false} />
+        <ReduxProvider>
+          <AuthProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="dark"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <div className="min-h-screen">
+                <main>{children}</main>
+              </div>
+            </ThemeProvider>
+          </AuthProvider>
+        </ReduxProvider>
 
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <div className="min-h-screen">
-            <main>
-              {/* <SiteHeader /> */}
-              {children}
-              {/* <SiteFooter /> */}
-            </main>
-          </div>
-        </ThemeProvider>
         <Toaster position="top-right" richColors closeButton />
       </body>
     </html>

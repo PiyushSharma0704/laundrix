@@ -7,11 +7,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "sonner";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/ui/password-input";
-
 import {
   Form,
   FormControl,
@@ -20,15 +18,17 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-
 import { loginSchema, type LoginFormInputs } from "@/utils/formSchemas/login";
 import { useRouter } from "next/navigation";
 import { apiClient } from "@/lib/api/api-client";
 import { API_ROUTES } from "@/utils/constants/api-routes";
 import { LoginResponse } from "@/lib/types";
+import { useAppDispatch } from "@/store/hooks";
+import { setUser } from "@/store/auth/authSlice";
 
 export default function LoginForm() {
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -49,6 +49,7 @@ export default function LoginForm() {
         data,
       );
       console.log(" Login response:", response);
+      dispatch(setUser(response.data.user));
 
       toast.success(response.message || "Login successful");
 

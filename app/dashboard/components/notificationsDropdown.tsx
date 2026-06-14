@@ -16,13 +16,17 @@ import { apiClient } from "@/lib/api/api-client";
 import { API_ROUTES } from "@/utils/constants/api-routes";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { clearUser } from "@/store/auth/authSlice";
 
 export default function UserNav() {
-    const router = useRouter();
-  
+  const router = useRouter();
+  const user = useAppSelector((state) => state.auth.user);
+  const dispatch = useAppDispatch();
   const handleLogout = async () => {
     try {
       await apiClient.post(API_ROUTES.LOGOUT);
+      dispatch(clearUser());
 
       toast.success("Logged out successfully");
 
@@ -42,13 +46,14 @@ export default function UserNav() {
           className="flex items-center gap-3 rounded-xl border bg-background px-3 py-2 shadow-sm transition-all hover:bg-muted hover:shadow-md"
         >
           <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary font-medium text-primary-foreground">
-            P
+            {user?.firstName?.charAt(0) ?? "U"}
           </div>
           <div className="hidden text-left lg:block">
-            <p className="text-sm font-medium text-foreground leading-none">
-              Piyush Sharma
+            <p className="text-sm font-medium text-foreground">
+              {user?.firstName} {user?.lastName}
             </p>
-            <p className="mt-1 text-xs text-muted-foreground">Owner</p>
+
+            <p className="text-xs text-muted-foreground">{user?.role}</p>
           </div>
           <ChevronDown className="h-4 w-4 text-muted-foreground" />
         </Button>

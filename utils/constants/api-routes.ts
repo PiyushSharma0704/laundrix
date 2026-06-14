@@ -7,4 +7,5 @@ export const API_ROUTES = {
   SIGNUP: "/auth/register",
   FORGOT_PASSWORD: "/auth/forgot-password",
   RESET_PASSWORD: "/auth/reset-password",
+  REFRESH: "/auth/refresh",
 } as const;
