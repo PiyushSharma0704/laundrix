@@ -22,9 +22,10 @@ import {
 } from "@/components/ui/form";
 
 import { loginSchema, type LoginFormInputs } from "@/utils/formSchemas/login";
-import { tokenStorage } from "@/lib/api/token";
 import { useRouter } from "next/navigation";
-import { login } from "@/lib/api/auth";
+import { apiClient } from "@/lib/api/api-client";
+import { API_ROUTES } from "@/utils/constants/api-routes";
+import { LoginResponse } from "@/lib/types";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -43,13 +44,13 @@ export default function LoginForm() {
     setIsLoading(true);
 
     try {
-      const response = await login(data);
+      const response = await apiClient.post<LoginResponse>(
+        API_ROUTES.LOGIN,
+        data,
+      );
+      console.log(" Login response:", response);
 
-      tokenStorage.setAccessToken(response.data.accessToken);
-
-      tokenStorage.setRefreshToken(response.data.refreshToken);
-
-      toast.success("Login successful");
+      toast.success(response.message || "Login successful");
 
       router.push("/dashboard");
     } catch (error) {
