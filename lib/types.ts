@@ -1,3 +1,4 @@
+// lib/types.ts
 export interface ApiSuccessResponse<T> {
   success: true;
   data: T;
@@ -39,7 +40,6 @@ export interface User {
   firstName: string;
   lastName: string;
   role: string;
-  storeId: string;
   isActive: boolean;
   createdAt: string;
   updatedAt: string;
@@ -50,3 +50,32 @@ export interface AuthState {
   isAuthenticated: boolean;
   loading: boolean;
 }
+export interface Store {
+  id: string;
+  name: string;
+  slug: string;
+  createdAt: string;
+}
+
+export interface StoreDetail {
+  id: string;
+  name: string;
+  slug: string;
+  ownerId: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CreateStoreRequest {
+  name: string;
+  slug: string;
+}
+
+export type GetStoresResponse =
+  ApiSuccessResponse<Store[]>;
+
+export type GetStoreDetailResponse =
+  ApiSuccessResponse<StoreDetail>;
+
+export type CreateStoreResponse =
+  ApiSuccessResponse<StoreDetail>;
