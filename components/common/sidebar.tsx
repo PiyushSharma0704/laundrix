@@ -10,13 +10,10 @@ export default function DashboardSidebar() {
 
   return (
     <aside className="flex h-screen w-64 flex-col border-r bg-background">
-      {" "}
       <div className="flex h-16 items-center border-b px-6">
-        {" "}
         <Link href="/dashboard" className="flex items-center gap-3">
-          {" "}
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary font-bold text-primary-foreground">
-            L{" "}
+            L
           </div>
           <div>
             <p className="font-bold">Laundrix</p>

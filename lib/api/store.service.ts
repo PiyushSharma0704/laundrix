@@ -13,6 +13,9 @@ import { toast } from "sonner";
 
 export const storeService = {
   getMyStores: async () => {
+    await new Promise((resolve) =>
+    setTimeout(resolve, 3000)
+  );
     const response = await apiClient.get<ApiSuccessResponse<Store[]>>(
       API_ROUTES.GET_MY_STORES,
     );
