@@ -1,4 +1,11 @@
+"use client";
+
+import { useAppSelector } from "@/store/hooks";
+
 export default function DashboardPage() {
+    const user = useAppSelector((state) => state.auth.user);
+    console.log("User in DashboardPage:", user);
+  
   return (
     <div className="space-y-6">
       {" "}

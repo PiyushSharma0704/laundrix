@@ -104,6 +104,11 @@ export const navItems = [
     icon: LayoutDashboard,
   },
   {
+    title: "Stores",
+    href: "/stores",
+    icon: PackageCheck,
+  },
+  {
     title: "Customers",
     href: "/dashboard/customers",
     icon: Users,
