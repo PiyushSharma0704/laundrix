@@ -1,4 +1,3 @@
-import Footer from "@/components/common/site-footer";
 import CTA from "@/components/landing/cta";
 import FAQ from "@/components/landing/faq";
 import Features from "@/components/landing/features";

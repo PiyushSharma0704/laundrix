@@ -1,3 +1,5 @@
+// constants
+
 const testimonials = [
   {
     name: "Gaurav Nigam",
@@ -21,6 +23,9 @@ import {
   Calendar,
   ShieldCheck,
   PackageCheck,
+  LayoutDashboard,
+  ShoppingBag,
+  Settings,
 } from "lucide-react";
 
 export const features = [
@@ -89,5 +94,38 @@ export const steps = [
     title: "Delivery & Feedback",
     description: "Deliver orders and automatically collect customer feedback.",
     icon: PackageCheck,
+  },
+];
+
+export const navItems = [
+  {
+    title: "Dashboard",
+    href: "/dashboard",
+    icon: LayoutDashboard,
+  },
+  {
+    title: "Customers",
+    href: "/dashboard/customers",
+    icon: Users,
+  },
+  {
+    title: "Orders",
+    href: "/dashboard/orders",
+    icon: ShoppingBag,
+  },
+  {
+    title: "Drivers",
+    href: "/dashboard/drivers",
+    icon: Truck,
+  },
+  {
+    title: "Billing",
+    href: "/dashboard/billing",
+    icon: CreditCard,
+  },
+  {
+    title: "Settings",
+    href: "/dashboard/settings",
+    icon: Settings,
   },
 ];

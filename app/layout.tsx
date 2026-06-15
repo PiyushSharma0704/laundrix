@@ -5,9 +5,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, DM_Sans } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "@/components/ui/sonner";
-import Footer from "@/components/common/site-footer";
-import SiteHeader from "@/components/common/site-header";
 import siteConfig from "@/utils/site-config";
+import ReduxProvider from "@/store/provider";
+import AuthProvider from "@/store/providers/AuthProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -117,19 +117,22 @@ export default function RootLayout({
         `}
       >
         <NextTopLoader color="#06b6d4" height={3} showSpinner={false} />
+        <ReduxProvider>
+          <AuthProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="dark"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <div className="min-h-screen">
+                <main>{children}</main>
+              </div>
+            </ThemeProvider>
+          </AuthProvider>
+        </ReduxProvider>
 
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <SiteHeader />
-          {children}
-          <Footer />
-
-          <Toaster position="top-right" richColors closeButton />
-        </ThemeProvider>
+        <Toaster position="top-right" richColors closeButton />
       </body>
     </html>
   );
