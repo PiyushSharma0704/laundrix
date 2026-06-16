@@ -19,13 +19,18 @@ import {
 import StoreSheet from "./store-sheet";
 import { Button } from "@/components/ui/button";
 import { MoreHorizontal } from "lucide-react";
+import TableSkeleton from "@/components/common/table-skeleton";
 
 interface StoresTableProps {
   stores: Store[];
   onRefresh?: () => void;
+  loading?: boolean;
 }
 
-export default function StoresTable({ stores, onRefresh }: StoresTableProps) {
+export default function StoresTable({ stores, onRefresh, loading }: StoresTableProps) {
+   if (loading) {
+      return <TableSkeleton columns={5} rows={5} />;
+    }
   return (
     <div className="rounded-md border bg-background">
       <Table>

@@ -9,6 +9,7 @@ export function useStores() {
 
   const loadStores = async () => {
     try {
+      setLoading(true);
       const data = await storeService.getMyStores();
       setStores(data);
     } catch (error) {

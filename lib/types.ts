@@ -54,6 +54,7 @@ export interface Store {
   id: string;
   name: string;
   slug: string;
+  businessId: string;
   createdAt: string;
 }
 
@@ -71,11 +72,34 @@ export interface CreateStoreRequest {
   slug: string;
 }
 
-export type GetStoresResponse =
-  ApiSuccessResponse<Store[]>;
+export type GetStoresResponse = ApiSuccessResponse<Store[]>;
 
-export type GetStoreDetailResponse =
-  ApiSuccessResponse<StoreDetail>;
+export type GetStoreDetailResponse = ApiSuccessResponse<StoreDetail>;
 
-export type CreateStoreResponse =
-  ApiSuccessResponse<StoreDetail>;
+export type CreateStoreResponse = ApiSuccessResponse<StoreDetail>;
+
+export interface Business {
+  id: string;
+  name: string;
+  slug: string;
+
+  createdAt: string;
+  updatedAt: string;
+
+  _count?: {
+    stores: number;
+  };
+}
+
+export interface BusinessDetail extends Business {
+  stores?: {
+    id: string;
+    name: string;
+    slug: string;
+  }[];
+}
+
+export interface CreateBusinessRequest {
+  name: string;
+  slug: string;
+}

@@ -49,6 +49,7 @@ export default function StoreSheet({
 
   const handleSubmit = async () => {
     try {
+      setSubmitting(true);
       await storeService.createStore({
         name,
         slug,
@@ -65,6 +66,8 @@ export default function StoreSheet({
       }
 
       toast.error("Something went wrong");
+    } finally {
+      setSubmitting(false);
     }
   };
 

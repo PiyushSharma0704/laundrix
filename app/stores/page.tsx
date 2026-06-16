@@ -10,10 +10,6 @@ import StoreSheet from "./components/store-sheet";
 export default function StoresPage() {
   const { stores, loading, refetch } = useStores();
 
-  if (loading) {
-    return <div>Loading stores...</div>;
-  }
-
   return (
     <PageWrapper
       title="Stores"
@@ -26,7 +22,9 @@ export default function StoresPage() {
         />
       }
     >
-      <StoresTable stores={stores} onRefresh={refetch} />
+      <StoresTable 
+      loading={loading}
+      stores={stores} onRefresh={refetch} />
     </PageWrapper>
   );
 }

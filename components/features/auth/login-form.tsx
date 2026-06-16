@@ -143,7 +143,7 @@ export default function LoginForm() {
 
           {/* Signup */}
           <div className="text-center text-sm">
-            Don&apos;t have an account?{" "}
+            Don&apos;t have an account?
             <Link href="/auth/signup" className="underline underline-offset-4">
               Create account
             </Link>

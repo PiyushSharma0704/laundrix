@@ -39,7 +39,6 @@ export default function UserNav() {
 
   return (
     <DropdownMenu>
-      {" "}
       <DropdownMenuTrigger asChild>
         <Button
           type="button"
