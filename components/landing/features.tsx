@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { features } from "@/utils/constants";
+import { features } from "@/utils/constants/constants";
 
 export default function Features() {
   return (

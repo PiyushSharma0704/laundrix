@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { steps } from "@/utils/constants";
+import { steps } from "@/utils/constants/constants";
 import { ArrowRight } from "lucide-react";
 
 export default function HowItWorks() {

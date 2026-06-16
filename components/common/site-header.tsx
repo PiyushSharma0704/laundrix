@@ -116,7 +116,9 @@ export default function SiteHeader() {
             <ThemeToggle />
 
             <Button variant="ghost">
-              Sign In
+              <Link href="/auth/login">
+                Sign In
+              </Link>
             </Button>
 
             <Button>
@@ -184,8 +186,9 @@ export default function SiteHeader() {
                 <Button
                   variant="outline"
                   className="w-full"
+                
                 >
-                  Sign In
+                  <Link href="/auth/login">Sign In</Link>
                 </Button>
 
                 <Button className="w-full">
