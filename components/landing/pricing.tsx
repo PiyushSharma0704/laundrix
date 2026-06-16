@@ -76,7 +76,7 @@ export default function Pricing() {
           </h2>
 
           <p className="mt-6 text-lg text-muted-foreground">
-            Whether you're running a single store or a nationwide franchise,
+            Whether you&apos;re running a single store or a nationwide franchise,
             Laundrix grows with your business.
           </p>
         </motion.div>

@@ -231,7 +231,7 @@ export default function Hero() {
                   </h3>
 
                   <p className="text-sm text-muted-foreground">
-                    Today's Overview
+                    Today&quot;s Overview
                   </p>
                 </div>
 

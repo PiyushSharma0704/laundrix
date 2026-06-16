@@ -122,7 +122,7 @@ export default function Testimonials() {
 
               {/* Quote */}
               <p className="text-lg leading-relaxed text-foreground">
-                "{testimonial.quote}"
+                &quot;{testimonial.quote}&quot;
               </p>
 
               {/* Footer */}
