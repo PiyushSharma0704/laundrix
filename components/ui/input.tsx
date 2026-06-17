@@ -2,10 +2,6 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
-export interface InputProps extends React.ComponentProps<"input"> {
-  type?: string
-}
-
 function Input({ className, type, ...props }: React.ComponentProps<"input">) {
   return (
     <input

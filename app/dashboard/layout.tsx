@@ -1,5 +1,8 @@
+// app/dashboard/layout.tsx
+
 import DashboardHeader from "@/components/common/dashboard-header";
 import DashboardSidebar from "@/components/common/sidebar";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 
 export default function DashboardLayout({
   children,
@@ -7,15 +10,16 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="h-screen flex overflow-hidden">
+    <SidebarProvider>
       <DashboardSidebar />
-      <div className="flex flex-1 flex-col">
+
+      <SidebarInset>
         <DashboardHeader />
 
-        <main className="flex-1 overflow-y-auto p-6 bg-muted/30">
+        <main className="flex-1 overflow-y-auto bg-muted/30 p-4 md:p-6">
           {children}
         </main>
-      </div>
-    </div>
+      </SidebarInset>
+    </SidebarProvider>
   );
 }

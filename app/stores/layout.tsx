@@ -1,22 +1,23 @@
-// /stores/layout.tsx
+// app/stores/layout.tsx
 import DashboardHeader from "@/components/common/dashboard-header";
 import DashboardSidebar from "@/components/common/sidebar";
 
-export default function DashboardLayout({
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+
+export default function StoresLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <div className="h-screen flex overflow-hidden">
+    <SidebarProvider>
       <DashboardSidebar />
-      <div className="flex flex-1 flex-col">
+
+      <SidebarInset>
         <DashboardHeader />
 
-        <main className="flex-1 overflow-y-auto p-6 bg-muted/30">
-          {children}
-        </main>
-      </div>
-    </div>
+        <main className="p-6">{children}</main>
+      </SidebarInset>
+    </SidebarProvider>
   );
 }
