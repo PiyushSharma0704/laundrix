@@ -129,7 +129,7 @@ export default function CustomerSheet({
           <SheetDescription>{description}</SheetDescription>
         </SheetHeader>
 
-        <div className="mt-6 space-y-4">
+        <div className="mt-6 space-y-4 px-6">
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}

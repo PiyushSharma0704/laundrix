@@ -15,9 +15,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
-import {
-  Form,
-} from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -29,10 +27,7 @@ import { storeService } from "@/lib/api/store.service";
 
 import StoreForm from "./store-form";
 
-import {
-  storeSchema,
-  StoreFormInputs,
-} from "@/utils/formSchemas/store";
+import { storeSchema, StoreFormInputs } from "@/utils/formSchemas/store";
 
 interface StoreSheetProps {
   mode: "create" | "view" | "edit";
@@ -73,29 +68,20 @@ export default function StoreSheet({
     }
   }, [store, open, form]);
 
-  const onSubmit = async (
-    data: StoreFormInputs,
-  ) => {
+  const onSubmit = async (data: StoreFormInputs) => {
     try {
       setSubmitting(true);
 
       if (mode === "create") {
         await storeService.createStore(data);
 
-        toast.success(
-          "Store created successfully",
-        );
+        toast.success("Store created successfully");
       }
 
       if (mode === "edit" && store) {
-        await storeService.updateStore(
-          store.id,
-          data,
-        );
+        await storeService.updateStore(store.id, data);
 
-        toast.success(
-          "Store updated successfully",
-        );
+        toast.success("Store updated successfully");
       }
 
       setOpen(false);
@@ -130,52 +116,35 @@ export default function StoreSheet({
         : "View store information.";
 
   return (
-    <Sheet
-      open={open}
-      onOpenChange={setOpen}
-    >
-      <SheetTrigger asChild>
-        {trigger}
-      </SheetTrigger>
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetTrigger asChild>{trigger}</SheetTrigger>
 
       <SheetContent className="sm:max-w-md">
         <SheetHeader>
-          <SheetTitle>
-            {title}
-          </SheetTitle>
+          <SheetTitle>{title}</SheetTitle>
 
-          <SheetDescription>
-            {description}
-          </SheetDescription>
+          <SheetDescription>{description}</SheetDescription>
         </SheetHeader>
+        <div className="mt-6 space-y-4 px-6">
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="mt-6 space-y-4"
+            >
+              <StoreForm control={form.control} mode={mode} />
 
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(
-              onSubmit,
-            )}
-            className="mt-6 space-y-4"
-          >
-            <StoreForm
-              control={form.control}
-              mode={mode}
-            />
-
-            {mode !== "view" && (
-              <Button
-                type="submit"
-                className="w-full"
-                disabled={submitting}
-              >
-                {submitting
-                  ? "Saving..."
-                  : mode === "create"
-                    ? "Create Store"
-                    : "Update Store"}
-              </Button>
-            )}
-          </form>
-        </Form>
+              {mode !== "view" && (
+                <Button type="submit" className="w-full" disabled={submitting}>
+                  {submitting
+                    ? "Saving..."
+                    : mode === "create"
+                      ? "Create Store"
+                      : "Update Store"}
+                </Button>
+              )}
+            </form>
+          </Form>
+        </div>
       </SheetContent>
     </Sheet>
   );
