@@ -72,6 +72,11 @@ export interface CreateStoreRequest {
   slug: string;
 }
 
+export interface UpdateStoreRequest {
+  name: string;
+  slug: string;
+}
+
 export type GetStoresResponse = ApiSuccessResponse<Store[]>;
 
 export type GetStoreDetailResponse = ApiSuccessResponse<StoreDetail>;
@@ -160,4 +165,19 @@ export interface CustomersResponse {
 
 export interface CustomerResponse {
   customer: Customer;
+}
+export interface PaginationMeta {
+  page: number;
+  limit: number;
+  total: number;
+  totalPages: number;
+}
+
+export interface GetCustomersResponse {
+  success: boolean;
+  message: string;
+  data: {
+    data: Customer[];
+    meta: PaginationMeta;
+  };
 }

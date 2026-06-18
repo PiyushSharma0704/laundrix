@@ -1,12 +1,17 @@
 // lib/api/customer.service.ts
 
-import { CreateCustomerDto, CustomerQuery, UpdateCustomerDto } from "../types";
+import {
+  CreateCustomerDto,
+  CustomerQuery,
+  GetCustomersResponse,
+  UpdateCustomerDto,
+} from "../types";
 import { apiClient } from "./api-client";
 import { API_ROUTES } from "@/utils/constants/api-routes";
 
 export const customerService = {
   getCustomers: (params?: CustomerQuery) =>
-    apiClient.get(API_ROUTES.CUSTOMERS, {
+    apiClient.get<GetCustomersResponse>(API_ROUTES.CUSTOMERS, {
       params,
     }),
 

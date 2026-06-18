@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { Customer } from "@/lib/types";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 
 import {
   Sheet,
@@ -18,7 +17,6 @@ import {
 import { toast } from "sonner";
 import { ApiError } from "@/lib/api/api-client";
 import { customerService } from "@/lib/api/customer.service";
-import StoreSelect from "@/components/common/store-select";
 import {
   CustomerFormInputs,
   customerSchema,

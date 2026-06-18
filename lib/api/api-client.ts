@@ -14,6 +14,7 @@ export class ApiError extends Error {
 
   constructor(message: string, status: number, errors?: unknown) {
     super(message);
+
     this.status = status;
     this.errors = errors;
   }
@@ -21,7 +22,7 @@ export class ApiError extends Error {
 
 let refreshPromise: Promise<void> | null = null;
 
-const apiClient: AxiosInstance = axios.create({
+const instance: AxiosInstance = axios.create({
   baseURL: API_URL,
   withCredentials: true,
   headers: {
@@ -35,12 +36,12 @@ const refreshAccessToken = async () => {
     {},
     {
       withCredentials: true,
-    }
+    },
   );
 };
 
-apiClient.interceptors.response.use(
-  (response) => response.data,
+instance.interceptors.response.use(
+  (response) => response,
 
   async (error: AxiosError) => {
     const originalRequest = error.config as InternalAxiosRequestConfig & {
@@ -65,7 +66,7 @@ apiClient.interceptors.response.use(
         await refreshPromise;
         refreshPromise = null;
 
-        return apiClient(originalRequest);
+        return instance(originalRequest);
       } catch {
         refreshPromise = null;
 
@@ -78,13 +79,46 @@ apiClient.interceptors.response.use(
     }
 
     throw new ApiError(
-      (error.response?.data as { message?: string })?.message ||
-        error.message ||
-        "Something went wrong",
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (error.response?.data as any)?.message || error.message,
       status || 500,
-      error.response?.data
+      error.response?.data,
     );
-  }
+  },
 );
 
-export { apiClient };
+export const apiClient = {
+  get: async <T>(url: string, config?: object): Promise<T> => {
+    const response = await instance.get<T>(url, config);
+
+    return response.data;
+  },
+
+  post: async <T>(url: string, data?: unknown, config?: object): Promise<T> => {
+    const response = await instance.post<T>(url, data, config);
+
+    return response.data;
+  },
+
+  patch: async <T>(
+    url: string,
+    data?: unknown,
+    config?: object,
+  ): Promise<T> => {
+    const response = await instance.patch<T>(url, data, config);
+
+    return response.data;
+  },
+
+  put: async <T>(url: string, data?: unknown, config?: object): Promise<T> => {
+    const response = await instance.put<T>(url, data, config);
+
+    return response.data;
+  },
+
+  delete: async <T>(url: string, config?: object): Promise<T> => {
+    const response = await instance.delete<T>(url, config);
+
+    return response.data;
+  },
+};

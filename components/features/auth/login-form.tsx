@@ -48,7 +48,7 @@ export default function LoginForm() {
         API_ROUTES.LOGIN,
         data,
       );
-      console.log(" Login response:", response);
+
       dispatch(setUser(response.data.user));
 
       toast.success(response.message || "Login successful");
