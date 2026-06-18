@@ -8,14 +8,11 @@ import {
   Store,
   StoreDetail,
   CreateStoreRequest,
+  UpdateStoreRequest,
 } from "@/lib/types";
-import { toast } from "sonner";
 
 export const storeService = {
   getMyStores: async () => {
-    await new Promise((resolve) =>
-    setTimeout(resolve, 3000)
-  );
     const response = await apiClient.get<ApiSuccessResponse<Store[]>>(
       API_ROUTES.GET_MY_STORES,
     );
@@ -37,11 +34,23 @@ export const storeService = {
       payload,
     );
 
-    if (!response.success) {
-      toast.error(response.message || "Failed to create store");
-    }
+    return response.data;
+  },
 
-    return response.data; 
+  updateStore: async (storeId: string, payload: UpdateStoreRequest) => {
+    const response = await apiClient.patch<ApiSuccessResponse<StoreDetail>>(
+      API_ROUTES.STORE_DETAIL(storeId),
+      payload,
+    );
 
+    return response.data;
+  },
+
+  deleteStore: async (storeId: string) => {
+    const response = await apiClient.delete<ApiSuccessResponse<null>>(
+      API_ROUTES.STORE_DETAIL(storeId),
+    );
+
+    return response;
   },
 };

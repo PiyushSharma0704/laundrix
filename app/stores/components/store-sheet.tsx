@@ -1,11 +1,10 @@
-// store-sheet.tsx
 "use client";
 
 import { useEffect, useState } from "react";
+
 import { Store } from "@/lib/types";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 
 import {
   Sheet,
@@ -15,9 +14,25 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { storeService } from "@/lib/api/store.service";
+
+import {
+  Form,
+} from "@/components/ui/form";
+
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
 import { toast } from "sonner";
+
 import { ApiError } from "@/lib/api/api-client";
+import { storeService } from "@/lib/api/store.service";
+
+import StoreForm from "./store-form";
+
+import {
+  storeSchema,
+  StoreFormInputs,
+} from "@/utils/formSchemas/store";
 
 interface StoreSheetProps {
   mode: "create" | "view" | "edit";
@@ -33,31 +48,60 @@ export default function StoreSheet({
   onSuccess,
 }: StoreSheetProps) {
   const [open, setOpen] = useState(false);
-  const [name, setName] = useState("");
-  const [slug, setSlug] = useState("");
   const [submitting, setSubmitting] = useState(false);
+
+  const form = useForm<StoreFormInputs>({
+    resolver: zodResolver(storeSchema),
+
+    defaultValues: {
+      name: "",
+      slug: "",
+    },
+  });
 
   useEffect(() => {
     if (store) {
-      setName(store.name);
-      setSlug(store.slug);
+      form.reset({
+        name: store.name,
+        slug: store.slug,
+      });
     } else {
-      setName("");
-      setSlug("");
+      form.reset({
+        name: "",
+        slug: "",
+      });
     }
-  }, [store, open]);
+  }, [store, open, form]);
 
-  const handleSubmit = async () => {
+  const onSubmit = async (
+    data: StoreFormInputs,
+  ) => {
     try {
       setSubmitting(true);
-      await storeService.createStore({
-        name,
-        slug,
-      });
 
-      toast.success("Store created successfully");
+      if (mode === "create") {
+        await storeService.createStore(data);
+
+        toast.success(
+          "Store created successfully",
+        );
+      }
+
+      if (mode === "edit" && store) {
+        await storeService.updateStore(
+          store.id,
+          data,
+        );
+
+        toast.success(
+          "Store updated successfully",
+        );
+      }
 
       setOpen(false);
+
+      form.reset();
+
       onSuccess?.();
     } catch (error) {
       if (error instanceof ApiError) {
@@ -86,44 +130,52 @@ export default function StoreSheet({
         : "View store information.";
 
   return (
-    <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger asChild>{trigger}</SheetTrigger>
+    <Sheet
+      open={open}
+      onOpenChange={setOpen}
+    >
+      <SheetTrigger asChild>
+        {trigger}
+      </SheetTrigger>
 
       <SheetContent className="sm:max-w-md">
         <SheetHeader>
-          <SheetTitle>{title}</SheetTitle>
-          <SheetDescription>{description}</SheetDescription>
+          <SheetTitle>
+            {title}
+          </SheetTitle>
+
+          <SheetDescription>
+            {description}
+          </SheetDescription>
         </SheetHeader>
 
-        <div className="mt-6 space-y-4">
-          <Input
-            placeholder="Store Name"
-            value={name}
-            disabled={mode === "view"}
-            onChange={(e) => setName(e.target.value)}
-          />
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(
+              onSubmit,
+            )}
+            className="mt-6 space-y-4"
+          >
+            <StoreForm
+              control={form.control}
+              mode={mode}
+            />
 
-          <Input
-            placeholder="Store Slug"
-            value={slug}
-            disabled={mode === "view"}
-            onChange={(e) => setSlug(e.target.value)}
-          />
-
-          {mode !== "view" && (
-            <Button
-              className="w-full"
-              onClick={handleSubmit}
-              disabled={submitting}
-            >
-              {submitting
-                ? "Saving..."
-                : mode === "create"
-                  ? "Create Store"
-                  : "Update Store"}
-            </Button>
-          )}
-        </div>
+            {mode !== "view" && (
+              <Button
+                type="submit"
+                className="w-full"
+                disabled={submitting}
+              >
+                {submitting
+                  ? "Saving..."
+                  : mode === "create"
+                    ? "Create Store"
+                    : "Update Store"}
+              </Button>
+            )}
+          </form>
+        </Form>
       </SheetContent>
     </Sheet>
   );

@@ -110,27 +110,27 @@ export const navItems = [
   },
   {
     title: "Customers",
-    href: "/dashboard/customers",
+    href: "/customers",
     icon: Users,
   },
   {
     title: "Orders",
-    href: "/dashboard/orders",
+    href: "/orders",
     icon: ShoppingBag,
   },
   {
     title: "Drivers",
-    href: "/dashboard/drivers",
+    href: "/drivers",
     icon: Truck,
   },
   {
     title: "Billing",
-    href: "/dashboard/billing",
+    href: "/billing",
     icon: CreditCard,
   },
   {
     title: "Settings",
-    href: "/dashboard/settings",
+    href: "/settings",
     icon: Settings,
   },
 ];

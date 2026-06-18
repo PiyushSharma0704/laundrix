@@ -103,3 +103,61 @@ export interface CreateBusinessRequest {
   name: string;
   slug: string;
 }
+
+export interface Customer {
+  id: string;
+
+  firstName: string;
+  lastName?: string;
+
+  phone: string;
+  dialCode: string;
+
+  email?: string;
+  notes?: string;
+
+  isActive: boolean;
+
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CreateCustomerDto {
+  firstName: string;
+  lastName?: string;
+
+  phone: string;
+  dialCode?: string;
+
+  email?: string;
+  notes?: string;
+
+  storeId: string;
+}
+
+export interface UpdateCustomerDto {
+  firstName?: string;
+  lastName?: string;
+
+  email?: string;
+  notes?: string;
+
+  isActive?: boolean;
+}
+
+export interface CustomerQuery {
+  page?: number;
+  limit?: number;
+  search?: string;
+}
+
+export interface CustomersResponse {
+  customers: Customer[];
+  total: number;
+  page: number;
+  limit: number;
+}
+
+export interface CustomerResponse {
+  customer: Customer;
+}
