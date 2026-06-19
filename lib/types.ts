@@ -181,3 +181,32 @@ export interface GetCustomersResponse {
     meta: PaginationMeta;
   };
 }
+
+// Garment Categories
+export interface GarmentCategory {
+  id: string;
+  name: string;
+  description?: string;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CreateGarmentCategoryDto {
+  name: string;
+  description?: string;
+}
+
+export interface UpdateGarmentCategoryDto {
+  name?: string;
+  description?: string;
+}
+
+export interface UpdateGarmentCategoryStatusDto {
+  isActive: boolean;
+}
+
+export interface GetGarmentCategoriesResponse {
+  success: boolean;
+  data: GarmentCategory[];
+}

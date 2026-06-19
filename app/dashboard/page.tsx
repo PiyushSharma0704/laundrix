@@ -1,11 +1,12 @@
 "use client";
 
 import { useAppSelector } from "@/store/hooks";
+import GitActivityCard from "./components/widget";
 
 export default function DashboardPage() {
-    const user = useAppSelector((state) => state.auth.user);
-    console.log("User in DashboardPage:", user);
-  
+  const user = useAppSelector((state) => state.auth.user);
+  console.log("User in DashboardPage:", user);
+
   return (
     <div className="space-y-6">
       <div>
@@ -35,9 +36,7 @@ export default function DashboardPage() {
           <h2 className="text-3xl font-bold">8</h2>
         </div>
       </div>
-      <div className="rounded-xl border bg-card p-6 h-[400px]">
-        Analytics Chart Area
-      </div>
+      <GitActivityCard />
     </div>
   );
 }

@@ -16,4 +16,8 @@ export const API_ROUTES = {
   // customers
   CUSTOMERS: "/customers",
   CUSTOMER_DETAIL: (customerId: string) => `/customers/${customerId}`,
+  // garments categories
+  GARMENT_CATEGORIES: "/garment-categories",
+  GARMENT_CATEGORY_DETAIL: (id: string) => `/garment-categories/${id}`,
+  GARMENT_CATEGORY_STATUS: (id: string) => `/garment-categories/${id}/status`,
 } as const;

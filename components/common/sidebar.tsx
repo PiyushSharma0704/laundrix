@@ -12,7 +12,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 
-import { navItems } from "@/utils/constants/constants";
+import { navSections } from "@/utils/constants/constants";
 
 export default function DashboardSidebar() {
   const pathname = usePathname();
@@ -35,25 +35,33 @@ export default function DashboardSidebar() {
 
       <SidebarContent>
         <SidebarMenu className="p-2">
-          {navItems.map((item) => {
-            const Icon = item.icon;
+          {navSections.map((section) => (
+            <div key={section.title}>
+              <p className="px-3 py-2 text-xs font-semibold uppercase text-muted-foreground">
+                {section.title}
+              </p>
 
-            const isActive =
-              item.href === "/dashboard"
-                ? pathname === item.href
-                : pathname.startsWith(item.href);
+              {section.items.map((item) => {
+                const Icon = item.icon;
 
-            return (
-              <SidebarMenuItem key={item.href}>
-                <SidebarMenuButton asChild isActive={isActive}>
-                  <Link href={item.href}>
-                    <Icon className="h-4 w-4" />
-                    <span>{item.title}</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            );
-          })}
+                const isActive =
+                  item.href === "/dashboard"
+                    ? pathname === item.href
+                    : pathname.startsWith(item.href);
+
+                return (
+                  <SidebarMenuItem key={item.href}>
+                    <SidebarMenuButton asChild isActive={isActive}>
+                      <Link href={item.href}>
+                        <Icon className="h-4 w-4" />
+                        <span>{item.title}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
+            </div>
+          ))}
         </SidebarMenu>
       </SidebarContent>
     </Sidebar>

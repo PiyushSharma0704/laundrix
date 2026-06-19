@@ -26,6 +26,9 @@ import {
   LayoutDashboard,
   ShoppingBag,
   Settings,
+  Tags,
+  Sparkles,
+  BookOpen,
 } from "lucide-react";
 
 export const features = [
@@ -94,6 +97,93 @@ export const steps = [
     title: "Delivery & Feedback",
     description: "Deliver orders and automatically collect customer feedback.",
     icon: PackageCheck,
+  },
+];
+
+export const navSections = [
+  {
+    title: "Main",
+    items: [
+      {
+        title: "Dashboard",
+        href: "/dashboard",
+        icon: LayoutDashboard,
+      },
+    ],
+  },
+
+  {
+    title: "Operations",
+    items: [
+      {
+        title: "Stores",
+        href: "/stores",
+        icon: PackageCheck,
+      },
+      {
+        title: "Customers",
+        href: "/customers",
+        icon: Users,
+      },
+      {
+        title: "Orders",
+        href: "/orders",
+        icon: ShoppingBag,
+      },
+      {
+        title: "Drivers",
+        href: "/drivers",
+        icon: Truck,
+      },
+    ],
+  },
+
+  {
+    title: "Catalog",
+    items: [
+      {
+        title: "Garment Categories",
+        href: "/catalog/garment-categories",
+        icon: Tags,
+      },
+      {
+        title: "Garment Types",
+        href: "/catalog/garment-types",
+        icon: Shirt,
+      },
+      {
+        title: "Service Types",
+        href: "/catalog/service-types",
+        icon: Sparkles,
+      },
+      {
+        title: "Service Catalog",
+        href: "/catalog/service-catalog",
+        icon: BookOpen,
+      },
+    ],
+  },
+
+  {
+    title: "Finance",
+    items: [
+      {
+        title: "Billing",
+        href: "/billing",
+        icon: CreditCard,
+      },
+    ],
+  },
+
+  {
+    title: "System",
+    items: [
+      {
+        title: "Settings",
+        href: "/settings",
+        icon: Settings,
+      },
+    ],
   },
 ];
 
