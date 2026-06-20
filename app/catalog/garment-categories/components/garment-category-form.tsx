@@ -12,7 +12,7 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { GarmentCategoryFormInputs } from "@/utils/formSchemas/store";
+import { GarmentCategoryFormInputs } from "@/utils/formSchemas/garment-category-schema";
 
 
 interface GarmentCategoryFormProps {

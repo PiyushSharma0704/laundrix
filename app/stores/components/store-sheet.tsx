@@ -2,7 +2,15 @@
 
 import { useEffect, useState } from "react";
 
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import { toast } from "sonner";
+
 import { Store } from "@/lib/types";
+
+import { ApiError } from "@/lib/api/api-client";
+import { storeService } from "@/lib/api/store.service";
 
 import { Button } from "@/components/ui/button";
 
@@ -16,14 +24,6 @@ import {
 } from "@/components/ui/sheet";
 
 import { Form } from "@/components/ui/form";
-
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-
-import { toast } from "sonner";
-
-import { ApiError } from "@/lib/api/api-client";
-import { storeService } from "@/lib/api/store.service";
 
 import StoreForm from "./store-form";
 
@@ -51,6 +51,10 @@ export default function StoreSheet({
     defaultValues: {
       name: "",
       slug: "",
+      code: "",
+      phone: "",
+      email: "",
+      address: "",
     },
   });
 
@@ -59,11 +63,19 @@ export default function StoreSheet({
       form.reset({
         name: store.name,
         slug: store.slug,
+        code: store.code,
+        phone: store.phone ?? "",
+        email: store.email ?? "",
+        address: store.address ?? "",
       });
     } else {
       form.reset({
         name: "",
         slug: "",
+        code: "",
+        phone: "",
+        email: "",
+        address: "",
       });
     }
   }, [store, open, form]);
@@ -72,14 +84,21 @@ export default function StoreSheet({
     try {
       setSubmitting(true);
 
+      const payload = {
+        ...data,
+        phone: data.phone || undefined,
+        email: data.email || undefined,
+        address: data.address || undefined,
+      };
+
       if (mode === "create") {
-        await storeService.createStore(data);
+        await storeService.createStore(payload);
 
         toast.success("Store created successfully");
       }
 
       if (mode === "edit" && store) {
-        await storeService.updateStore(store.id, data);
+        await storeService.updateStore(store.id, payload);
 
         toast.success("Store updated successfully");
       }
@@ -110,7 +129,7 @@ export default function StoreSheet({
 
   const description =
     mode === "create"
-      ? "Add a new laundry outlet."
+      ? "Add a new laundry store."
       : mode === "edit"
         ? "Update store information."
         : "View store information.";
@@ -119,18 +138,16 @@ export default function StoreSheet({
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>{trigger}</SheetTrigger>
 
-      <SheetContent className="sm:max-w-md">
+      <SheetContent className="sm:max-w-md overflow-y-auto">
         <SheetHeader>
           <SheetTitle>{title}</SheetTitle>
 
           <SheetDescription>{description}</SheetDescription>
         </SheetHeader>
-        <div className="mt-6 space-y-4 px-6">
+
+        <div className="mt-6 px-6">
           <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="mt-6 space-y-4"
-            >
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <StoreForm control={form.control} mode={mode} />
 
               {mode !== "view" && (

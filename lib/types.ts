@@ -52,17 +52,42 @@ export interface AuthState {
 }
 export interface Store {
   id: string;
+
+  businessId: string;
+
   name: string;
   slug: string;
-  businessId: string;
+  code: string;
+
+  phone?: string;
+  email?: string;
+  address?: string;
+
+  customerSequence: number;
+
+  isActive: boolean;
+
   createdAt: string;
+  updatedAt: string;
 }
 
 export interface StoreDetail {
   id: string;
+
+  businessId: string;
+
   name: string;
   slug: string;
-  ownerId: string;
+  code: string;
+
+  phone?: string;
+  email?: string;
+  address?: string;
+
+  customerSequence: number;
+
+  isActive: boolean;
+
   createdAt: string;
   updatedAt: string;
 }
@@ -70,18 +95,36 @@ export interface StoreDetail {
 export interface CreateStoreRequest {
   name: string;
   slug: string;
+  code: string;
+
+  phone?: string;
+  email?: string;
+  address?: string;
 }
 
 export interface UpdateStoreRequest {
-  name: string;
-  slug: string;
+  name?: string;
+  slug?: string;
+  code?: string;
+
+  phone?: string;
+  email?: string;
+  address?: string;
+
+  isActive?: boolean;
 }
 
-export type GetStoresResponse = ApiSuccessResponse<Store[]>;
+export type GetStoresResponse =
+  ApiSuccessResponse<Store[]>;
 
-export type GetStoreDetailResponse = ApiSuccessResponse<StoreDetail>;
+export type GetStoreDetailResponse =
+  ApiSuccessResponse<StoreDetail>;
 
-export type CreateStoreResponse = ApiSuccessResponse<StoreDetail>;
+export type CreateStoreResponse =
+  ApiSuccessResponse<StoreDetail>;
+
+export type UpdateStoreResponse =
+  ApiSuccessResponse<StoreDetail>;
 
 export interface Business {
   id: string;

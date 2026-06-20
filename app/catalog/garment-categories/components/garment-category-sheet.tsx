@@ -26,7 +26,7 @@ import { ApiError } from "@/lib/api/api-client";
 import { garmentCategoryService } from "@/lib/api/garment-category.service";
 
 import GarmentCategoryForm from "./garment-category-form";
-import { GarmentCategoryFormInputs, garmentCategorySchema } from "@/utils/formSchemas/store";
+import { GarmentCategoryFormInputs, garmentCategorySchema } from "@/utils/formSchemas/garment-category-schema";
 
 
 interface GarmentCategorySheetProps {
