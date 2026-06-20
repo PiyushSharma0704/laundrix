@@ -12,8 +12,8 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { GarmentCategoryFormInputs } from "@/utils/formSchemas/garment-category-schema";
 
+import { GarmentCategoryFormInputs } from "@/utils/formSchemas/garment-category-schema";
 
 interface GarmentCategoryFormProps {
   control: Control<GarmentCategoryFormInputs>;
@@ -27,7 +27,28 @@ export default function GarmentCategoryForm({
   const isView = mode === "view";
 
   return (
-    <>
+    <div className="space-y-4">
+      <FormField
+        control={control}
+        name="code"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Code</FormLabel>
+
+            <FormControl>
+              <Input
+                placeholder="SHIRT"
+                disabled={isView}
+                {...field}
+                value={field.value ?? ""}
+              />
+            </FormControl>
+
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
       <FormField
         control={control}
         name="name"
@@ -53,10 +74,10 @@ export default function GarmentCategoryForm({
 
             <FormControl>
               <Textarea
-                placeholder="Formal shirts, casual shirts, etc."
+                placeholder="Formal shirts, casual shirts, t-shirts, etc."
                 disabled={isView}
-                className="resize-none"
                 rows={4}
+                className="resize-none"
                 {...field}
                 value={field.value ?? ""}
               />
@@ -66,6 +87,49 @@ export default function GarmentCategoryForm({
           </FormItem>
         )}
       />
-    </>
+
+      <FormField
+        control={control}
+        name="imageUrl"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Image URL</FormLabel>
+
+            <FormControl>
+              <Input
+                placeholder="https://example.com/image.jpg"
+                disabled={isView}
+                {...field}
+                value={field.value ?? ""}
+              />
+            </FormControl>
+
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
+      <FormField
+        control={control}
+        name="sortOrder"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Sort Order</FormLabel>
+
+            <FormControl>
+              <Input
+                type="number"
+                min={0}
+                disabled={isView}
+                value={field.value ?? 0}
+                onChange={(e) => field.onChange(Number(e.target.value))}
+              />
+            </FormControl>
+
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+    </div>
   );
 }
