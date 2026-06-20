@@ -1,16 +1,33 @@
-// app/catalog/service-catalog/page.tsx
 "use client";
 
-import ComingSoon from "@/components/common/coming-soon";
 import PageWrapper from "@/components/common/page-wrapper";
+import { Button } from "@/components/ui/button";
 
-export default function ServiceCatalog() {
+import { useServiceCatalog } from "@/hooks/useServiceCatalog";
+
+import ServiceCatalogSheet from "./components/service-catalog-sheet";
+import ServiceCatalogTable from "./components/service-catalog-table";
+
+export default function ServiceCatalogPage() {
+  const { items, loading, refetch } = useServiceCatalog();
+
   return (
     <PageWrapper
-      title="Garment Categories"
-      subtitle="Manage all your garment categories"
+      title="Service Catalog"
+      subtitle="Manage pricing for garment and service combinations"
+      actions={
+        <ServiceCatalogSheet
+          mode="create"
+          onSuccess={refetch}
+          trigger={<Button>Create Catalog Item +</Button>}
+        />
+      }
     >
-      <ComingSoon />
+      <ServiceCatalogTable
+        items={items}
+        loading={loading}
+        onRefresh={refetch}
+      />
     </PageWrapper>
   );
 }

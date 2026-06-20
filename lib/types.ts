@@ -210,3 +210,207 @@ export interface GetGarmentCategoriesResponse {
   success: boolean;
   data: GarmentCategory[];
 }
+
+// Garment types
+
+export enum PricingUnit {
+  PIECE = "PIECE",
+  KG = "KG",
+  SQ_FT = "SQ_FT",
+}
+
+export interface GarmentType {
+  id: string;
+  categoryId: string;
+  code?: string;
+  name: string;
+  description?: string;
+  imageUrl?: string;
+  sortOrder?: number;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
+  category?: {
+    id: string;
+    name: string;
+  };
+}
+
+export interface CreateGarmentTypeDto {
+  categoryId: string;
+  code?: string;
+  name: string;
+  description?: string;
+  imageUrl?: string;
+  sortOrder?: number;
+}
+
+export interface UpdateGarmentTypeDto {
+  categoryId?: string;
+  code?: string;
+  name?: string;
+  description?: string;
+  imageUrl?: string;
+  sortOrder?: number;
+}
+
+export interface GarmentTypeFilters {
+  categoryId?: string;
+  search?: string;
+  isActive?: boolean;
+}
+
+// Service Type
+export interface ServiceType {
+  id: string;
+
+  businessId: string;
+
+  code: string | null;
+
+  name: string;
+
+  description: string | null;
+
+  imageUrl: string | null;
+
+  sortOrder: number;
+
+  isActive: boolean;
+
+  createdAt: string;
+
+  updatedAt: string;
+
+  deletedAt: string | null;
+}
+
+export interface CreateServiceTypeDto {
+  code?: string;
+
+  name: string;
+
+  description?: string;
+
+  imageUrl?: string;
+
+  sortOrder?: number;
+}
+
+export interface UpdateServiceTypeDto {
+  code?: string;
+
+  name?: string;
+
+  description?: string;
+
+  imageUrl?: string;
+
+  sortOrder?: number;
+}
+
+export interface UpdateServiceTypeStatusDto {
+  isActive: boolean;
+}
+
+export interface ServiceTypeFilters {
+  search?: string;
+
+  isActive?: boolean;
+}
+
+// Service Catalog
+
+export interface ServiceCatalogItem {
+  id: string;
+
+  businessId: string;
+
+  serviceTypeId: string;
+
+  garmentTypeId: string;
+
+  code?: string | null;
+
+  description?: string | null;
+
+  pricingUnit: PricingUnit;
+
+  basePrice: number;
+
+  minimumPrice?: number | null;
+
+  gstRate?: number | null;
+
+  isActive: boolean;
+
+  createdAt: string;
+
+  updatedAt: string;
+
+  serviceType?: {
+    id: string;
+    name: string;
+  };
+
+  garmentType?: {
+    id: string;
+    name: string;
+    category?: {
+      id: string;
+      name: string;
+    };
+  };
+}
+
+export interface CreateServiceCatalogItemDto {
+  serviceTypeId: string;
+
+  garmentTypeId: string;
+
+  code?: string;
+
+  description?: string;
+
+  pricingUnit: PricingUnit;
+
+  basePrice: number;
+
+  minimumPrice?: number;
+
+  gstRate?: number;
+}
+
+export interface UpdateServiceCatalogItemDto {
+  serviceTypeId?: string;
+
+  garmentTypeId?: string;
+
+  code?: string;
+
+  description?: string;
+
+  pricingUnit?: PricingUnit;
+
+  basePrice?: number;
+
+  minimumPrice?: number;
+
+  gstRate?: number;
+}
+
+export interface UpdateServiceCatalogItemStatusDto {
+  isActive: boolean;
+}
+
+export interface ServiceCatalogItemFilters {
+  serviceTypeId?: string;
+
+  garmentTypeId?: string;
+
+  pricingUnit?: PricingUnit;
+
+  isActive?: boolean;
+
+  search?: string;
+}

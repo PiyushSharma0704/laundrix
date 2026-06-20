@@ -20,4 +20,7 @@ export const API_ROUTES = {
   GARMENT_CATEGORIES: "/garment-categories",
   GARMENT_CATEGORY_DETAIL: (id: string) => `/garment-categories/${id}`,
   GARMENT_CATEGORY_STATUS: (id: string) => `/garment-categories/${id}/status`,
+  GARMENT_TYPES: "/garment-types",
+  SERVICE_TYPES: "/service-types",
+  SERVICE_CATALOG: "/service-catalog-items",
 } as const;
