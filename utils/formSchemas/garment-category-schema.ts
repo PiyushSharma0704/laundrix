@@ -1,8 +1,6 @@
 import { z } from "zod";
 
 export const garmentCategorySchema = z.object({
-  categoryId: z.string().min(1, "Category is required"),
-
   code: z
     .string()
     .trim()
