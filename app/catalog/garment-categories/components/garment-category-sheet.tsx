@@ -26,8 +26,10 @@ import { ApiError } from "@/lib/api/api-client";
 import { garmentCategoryService } from "@/lib/api/garment-category.service";
 
 import GarmentCategoryForm from "./garment-category-form";
-import { GarmentCategoryFormInputs, garmentCategorySchema } from "@/utils/formSchemas/garment-category-schema";
-
+import {
+  GarmentCategoryFormInputs,
+  garmentCategorySchema,
+} from "@/utils/formSchemas/garment-category-schema";
 
 interface GarmentCategorySheetProps {
   mode: "create" | "view" | "edit";
@@ -47,52 +49,49 @@ export default function GarmentCategorySheet({
 
   const form = useForm<GarmentCategoryFormInputs>({
     resolver: zodResolver(garmentCategorySchema),
-
     defaultValues: {
+      code: "",
       name: "",
       description: "",
+      imageUrl: "",
+      sortOrder: 0,
     },
   });
 
   useEffect(() => {
     if (category) {
       form.reset({
+        code: category.code || "",
         name: category.name,
         description: category.description || "",
+        imageUrl: category.imageUrl || "",
+        sortOrder: category.sortOrder ?? 0,
       });
     } else {
       form.reset({
+        code: "",
         name: "",
         description: "",
+        imageUrl: "",
+        sortOrder: 0,
       });
     }
   }, [category, open, form]);
 
-  const onSubmit = async (
-    data: GarmentCategoryFormInputs,
-  ) => {
+  const onSubmit = async (data: GarmentCategoryFormInputs) => {
     try {
       setSubmitting(true);
 
       if (mode === "create") {
-        await garmentCategoryService.createCategory(
-          data,
-        );
+        await garmentCategoryService.createCategory(data);
 
-        toast.success(
-          "Garment category created successfully",
-        );
+        toast.success("Garment category created successfully");
       }
 
       if (mode === "edit" && category) {
-        await garmentCategoryService.updateCategory(
-          category.id,
-          data,
-        );
+        await garmentCategoryService.updateCategory(category.id, data);
 
-        toast.success(
-          "Garment category updated successfully",
-        );
+        toast.success("Garment category updated successfully");
       }
 
       setOpen(false);
@@ -128,36 +127,22 @@ export default function GarmentCategorySheet({
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger asChild>
-        {trigger}
-      </SheetTrigger>
+      <SheetTrigger asChild>{trigger}</SheetTrigger>
 
       <SheetContent className="sm:max-w-md">
         <SheetHeader>
           <SheetTitle>{title}</SheetTitle>
 
-          <SheetDescription>
-            {description}
-          </SheetDescription>
+          <SheetDescription>{description}</SheetDescription>
         </SheetHeader>
 
         <div className="mt-6 space-y-4 px-6">
           <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="space-y-4"
-            >
-              <GarmentCategoryForm
-                control={form.control}
-                mode={mode}
-              />
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <GarmentCategoryForm control={form.control} mode={mode} />
 
               {mode !== "view" && (
-                <Button
-                  type="submit"
-                  className="w-full"
-                  disabled={submitting}
-                >
+                <Button type="submit" className="w-full" disabled={submitting}>
                   {submitting
                     ? "Saving..."
                     : mode === "create"

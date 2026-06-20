@@ -228,21 +228,31 @@ export interface GetCustomersResponse {
 // Garment Categories
 export interface GarmentCategory {
   id: string;
+  businessId: string;
+  code?: string;
   name: string;
   description?: string;
+  imageUrl?: string;
+  sortOrder: number;
   isActive: boolean;
   createdAt: string;
   updatedAt: string;
 }
 
 export interface CreateGarmentCategoryDto {
+  code?: string;
   name: string;
   description?: string;
+  imageUrl?: string;
+  sortOrder?: number;
 }
 
 export interface UpdateGarmentCategoryDto {
+  code?: string;
   name?: string;
   description?: string;
+  imageUrl?: string;
+  sortOrder?: number;
 }
 
 export interface UpdateGarmentCategoryStatusDto {
